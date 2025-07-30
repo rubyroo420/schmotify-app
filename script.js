@@ -69,29 +69,56 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Event listeners
-    schmotifyBtn.addEventListener('click', function() {
-        const input = inputText.value;
-        const cleanInput = input.trim().toLowerCase().replace(/\?$/, '');
-        const triggerPhrases = ['is this loss', 'loss'];
-
-        if (triggerPhrases.includes(cleanInput)) {
-            // Trigger the Easter Egg
-            document.body.classList.add('wavy-active');
-            easterEggImage.classList.add('active');
-            easterEggSound.currentTime = 0; // Rewind sound to the start
-            easterEggSound.play();
-
-            let seed = 0;
-            function animateWavy() {
-                seed += 0.02;
-                turbulence.setAttribute('seed', seed);
-                wavyAnimation = requestAnimationFrame(animateWavy);
-            }
-            animateWavy();
-
-            return; // Skip the schmotify logic
+    // Check for Easter egg trigger words
+    function checkForEasterEgg(text) {
+        const triggers = ['is this loss', 'loss'];
+        const normalizedText = text.toLowerCase().replace(/[^a-z\s]/g, '');
+        
+        return triggers.some(trigger => 
+            normalizedText.includes(trigger) && 
+            normalizedText.length <= trigger.length + 3 // Allow for minor variations
+        );
+    }
+    
+    // Show Loss Vision animation
+    function showLossVision() {
+        const overlay = document.getElementById('lossVisionOverlay');
+        const image = document.getElementById('easterEggImage');
+        const sound = document.getElementById('easterEggSound');
+        
+        // Show overlay and start animations
+        overlay.classList.add('active');
+        image.style.display = 'block';
+        
+        // Play sound if available
+        if (sound) {
+            sound.currentTime = 0;
+            sound.play().catch(e => console.log('Audio play failed:', e));
         }
         
+        // Hide after 5 seconds
+        setTimeout(() => {
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                image.style.display = 'none';
+                if (sound) sound.pause();
+            }, 1000);
+        }, 5000);
+    }
+
+    schmotifyBtn.addEventListener('click', function() {
+        const input = inputText.value;
+        
+        if (checkForEasterEgg(input)) {
+            // Trigger the Loss Vision animation
+            showLossVision();
+        } else {
+            // Normal Schmotify functionality
+            const output = schmotifyText(input);
+            outputText.innerHTML = output.replace(/\n/g, '<br>');
+            copyBtn.style.display = 'block';
+        }
+
         if (!input.trim()) {
             alert('Please enter some text to schmotify!');
             return;
@@ -146,6 +173,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 copyBtn.style.background = '#28a745';
             }, 2000);
         });
+    });
+
+    // Close Easter egg when clicking the overlay
+    document.getElementById('lossVisionOverlay').addEventListener('click', function() {
+        this.classList.remove('active');
+        const sound = document.getElementById('easterEggSound');
+        const image = document.getElementById('easterEggImage');
+        if (sound) sound.pause();
+        image.style.display = 'none';
     });
 
     // Hide Easter egg when the image is clicked
