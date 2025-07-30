@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const copyBtn = document.getElementById('copyBtn');
     const easterEggImage = document.getElementById('easterEggImage');
     const easterEggSound = document.getElementById('easterEggSound');
+    const turbulence = document.querySelector('#wavy feTurbulence');
+    let wavyAnimation;
+
 
     // Schmotify function - adds "schm" prefix to each word
     function schmotifyText(text) {
@@ -81,9 +84,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (triggerPhrases.includes(cleanInput)) {
             // Trigger the Easter Egg
+            document.body.classList.add('wavy-active');
             easterEggImage.classList.add('active');
             easterEggSound.currentTime = 0; // Rewind sound to the start
             easterEggSound.play();
+
+            let seed = 0;
+            function animateWavy() {
+                seed += 0.02;
+                turbulence.setAttribute('seed', seed);
+                wavyAnimation = requestAnimationFrame(animateWavy);
+            }
+            animateWavy();
+
             return; // Skip the schmotify logic
         }
         
@@ -145,8 +158,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Hide Easter egg when the image is clicked
     easterEggImage.addEventListener('click', function() {
+        document.body.classList.remove('wavy-active');
         easterEggImage.classList.remove('active');
         easterEggSound.pause();
+        cancelAnimationFrame(wavyAnimation);
     });
 
     // Allow Enter key to trigger schmoozify (with Ctrl/Cmd)

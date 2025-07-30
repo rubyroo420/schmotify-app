@@ -12,6 +12,10 @@ body {
     padding: 20px;
 }
 
+body.wavy-active {
+    filter: url(#wavy);
+}
+
 .container {
     max-width: 800px;
     margin: 0 auto;

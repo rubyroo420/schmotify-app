@@ -32,5 +32,15 @@
     </div>
 
     <script src="script.js"></script>
+
+    <!-- Wavy Filter Definition -->
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none;">
+        <defs>
+            <filter id="wavy">
+                <feTurbulence type="fractalNoise" baseFrequency="0.02 0.02" numOctaves="3" result="turbulence" seed="0"/>
+                <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+        </defs>
+    </svg>
 </body>
 </html>
