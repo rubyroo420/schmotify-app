@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!text.trim()) return '';
 
         // Split text into words while preserving punctuation and spacing
-        // Updated regex to handle apostrophes in contractions like "it's", "don't", etc.
+        // Updated regex to properly handle contractions like "it's", "don't", "I'm", etc.
         return text.replace(/\b[a-zA-Z]+(?:'[a-zA-Z]+)?\b/g, function(word) {
             // Check if the original word starts with a capital letter
             const isCapitalized = /^[A-Z]/.test(word);
@@ -31,33 +31,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 return schmPrefix + restOfWord;
             }
             
-            // Handle contractions by processing only the first part before apostrophe
+            // Handle contractions
             if (word.includes("'")) {
-                const parts = word.split("'");
-                const firstPart = parts[0];
-                const restParts = parts.slice(1).join("'");
-                const isFirstPartCapitalized = /^[A-Z]/.test(firstPart);
-                
-                // Process the first part
-                let processedFirstPart;
-                if (/^[aeiou]/i.test(firstPart)) {
-                    const schmPrefix = getSchmPrefix(isFirstPartCapitalized);
-                    const restOfFirstPart = isFirstPartCapitalized ? firstPart.charAt(0).toLowerCase() + firstPart.slice(1) : firstPart;
-                    processedFirstPart = schmPrefix + restOfFirstPart;
-                } else {
-                    const vowelMatch = firstPart.match(/[aeiouy]/i);
-                    if (vowelMatch) {
-                        const vowelIndex = vowelMatch.index;
-                        const schmPrefix = getSchmPrefix(isFirstPartCapitalized);
-                        const restOfFirstPart = firstPart.substring(vowelIndex);
-                        processedFirstPart = schmPrefix + restOfFirstPart;
-                    } else {
-                        const schmPrefix = getSchmPrefix(isFirstPartCapitalized);
-                        processedFirstPart = schmPrefix + firstPart.toLowerCase();
-                    }
+                // Special case for "I'm" - transform to "Schmi'm"
+                if (word.toLowerCase() === "i'm") {
+                    return word[0] === 'I' ? "Schmi'm" : "schmi'm";
                 }
                 
-                return processedFirstPart + "'" + restParts;
+                // For other contractions, process the entire word as one unit
+                const isCapitalized = /^[A-Z]/.test(word);
+                const schmPrefix = getSchmPrefix(isCapitalized);
+                
+                // Find first vowel in the entire word
+                const vowelMatch = word.match(/[aeiouy]/i);
+                if (vowelMatch) {
+                    const vowelIndex = vowelMatch.index;
+                    const restOfWord = word.substring(vowelIndex);
+                    return schmPrefix + restOfWord.toLowerCase();
+                }
+                return schmPrefix + word.toLowerCase();
             }
             
             // If word starts with consonant(s), replace ALL beginning consonants with "schm"
