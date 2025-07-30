@@ -14,6 +14,20 @@ body {
 
 body.wavy-active {
     filter: url(#wavy);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Ensure fonts render properly on mobile during wavy effect */
+@media (max-width: 768px) {
+    body.wavy-active {
+        filter: none; /* Disable wavy effect on mobile to preserve font rendering */
+    }
+    
+    body.wavy-active .container {
+        filter: url(#wavy); /* Apply filter only to content container on mobile */
+    }
 }
 
 .container {
