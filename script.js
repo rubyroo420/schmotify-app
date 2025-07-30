@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const outputText = document.getElementById('outputText');
     const schmotifyBtn = document.getElementById('schmotifyBtn');
     const copyBtn = document.getElementById('copyBtn');
+    const easterEggImage = document.getElementById('easterEggImage');
+    const easterEggSound = document.getElementById('easterEggSound');
 
     // Schmotify function - adds "schm" prefix to each word
     function schmotifyText(text) {
@@ -74,6 +76,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listeners
     schmotifyBtn.addEventListener('click', function() {
         const input = inputText.value;
+        const cleanInput = input.trim().toLowerCase().replace(/\?$/, '');
+        const triggerPhrases = ['is this loss', 'loss'];
+
+        if (triggerPhrases.includes(cleanInput)) {
+            // Trigger the Easter Egg
+            easterEggImage.classList.add('active');
+            easterEggSound.currentTime = 0; // Rewind sound to the start
+            easterEggSound.play();
+            return; // Skip the schmotify logic
+        }
         
         if (!input.trim()) {
             alert('Please enter some text to schmotify!');
@@ -129,6 +141,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 copyBtn.style.background = '#28a745';
             }, 2000);
         });
+    });
+
+    // Hide Easter egg when the image is clicked
+    easterEggImage.addEventListener('click', function() {
+        easterEggImage.classList.remove('active');
+        easterEggSound.pause();
     });
 
     // Allow Enter key to trigger schmoozify (with Ctrl/Cmd)
