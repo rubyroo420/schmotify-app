@@ -1,0 +1,273 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #f0f0f0;
+    /* Background image will be added here later */
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    color: #333;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.input-section {
+    margin-bottom: 30px;
+}
+
+#inputText {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    margin-bottom: 15px;
+}
+
+#inputText:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+#schmotifyBtn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#schmotifyBtn:hover {
+    background: #0056b3;
+}
+
+.output-section {
+    margin-bottom: 20px;
+}
+
+.output-box {
+    min-height: 150px;
+    max-height: 400px;
+    padding: 20px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+    margin-bottom: 15px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.output-box.has-content {
+    border: 2px solid #ddd;
+    background: #f9f9f9;
+}
+
+.placeholder {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    margin-top: 50px;
+    font-family: inherit;
+}
+
+.copy-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.copy-btn:hover {
+    background: #1e7e34;
+}
+
+/* Mobile-first responsive design */
+
+/* Extra small devices (phones, 320px and up) */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 15px;
+        margin: 5px;
+        border-radius: 8px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    
+    .input-section {
+        margin-bottom: 20px;
+    }
+    
+    #inputText {
+        padding: 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
+        border-radius: 6px;
+        margin-bottom: 12px;
+        min-height: 100px;
+    }
+    
+    #schmotifyBtn {
+        padding: 14px 20px;
+        font-size: 16px;
+        border-radius: 6px;
+        width: 100%;
+    }
+    
+    .output-section {
+        margin-bottom: 15px;
+    }
+    
+    .output-box {
+        min-height: 120px;
+        max-height: 250px;
+        padding: 15px;
+        font-size: 1rem;
+        border-radius: 6px;
+        margin-bottom: 12px;
+    }
+    
+    .placeholder {
+        margin-top: 30px;
+        font-size: 0.9rem;
+    }
+    
+    .copy-btn {
+        padding: 12px 18px;
+        font-size: 14px;
+        border-radius: 6px;
+        width: 100%;
+    }
+}
+
+/* Small devices (landscape phones, 481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+    
+    .container {
+        padding: 25px;
+        margin: 10px;
+        max-width: 600px;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+        margin-bottom: 25px;
+    }
+    
+    #inputText {
+        padding: 14px;
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+    
+    #schmoozifyBtn {
+        padding: 14px 24px;
+        font-size: 1.1rem;
+    }
+    
+    .output-box {
+        min-height: 140px;
+        max-height: 300px;
+        padding: 18px;
+        font-size: 1.05rem;
+    }
+    
+    .copy-btn {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+}
+
+/* Medium devices (tablets, 769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        max-width: 700px;
+        padding: 30px;
+    }
+    
+    h1 {
+        font-size: 2.4rem;
+    }
+}
+
+/* Touch-friendly improvements */
+@media (pointer: coarse) {
+    #schmoozifyBtn, .copy-btn {
+        min-height: 44px;
+    }
+    
+    #inputText {
+        min-height: 44px;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+    
+    .input-section {
+        margin-bottom: 15px;
+    }
+    
+    #inputText {
+        min-height: 80px;
+    }
+    
+    .output-box {
+        min-height: 100px;
+        max-height: 200px;
+    }
+}
