@@ -290,7 +290,8 @@ h1 {
 
 #easterEggImage.active {
     display: block;
-    animation: fadeInPulsate 2s forwards;
+    animation: fadeInPulsate 4s forwards;
+    animation-iteration-count: 2; /* Let it play twice */
 }
 
 @keyframes fadeInPulsate {
@@ -299,11 +300,11 @@ h1 {
         transform: translate(-50%, -50%) scale(0.5);
     }
     50% {
-        opacity: 0.7;
-        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.5); /* Scale up larger */
     }
     100% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
+        transform: translate(-50%, -50%) scale(1); /* Settle at normal size */
     }
 }
